@@ -104,3 +104,39 @@ def play(list, input_pos, player, mode):
                 print("***************")
                 print("* wrong entry *")
                 print("***************")
+
+def all_valid_moves(list, player):
+    valid_moves_player_1 = []
+    valid_moves_player2 = []
+    if player == 2:
+        for i in range(8, 14):
+            if list[i] != 0:
+                valid_moves_player2.append(i)
+        return valid_moves_player2
+    elif player == 1:
+        for i in range(1, 7):
+            if list[i] != 0:
+                valid_moves_player_1.append(i)
+        return valid_moves_player_1
+
+
+def game_ended(list):
+    if (list[1:7] == [0, 0, 0, 0, 0, 0]) or (list[8:14] == [0, 0, 0, 0, 0, 0]):
+        return True
+    else:
+        return False
+
+
+def win(list):
+    winner = 0
+    if list[0] > list[7]:
+        winner = 2
+    elif list[7] > list[0]:
+        winner = 1
+    else:
+        winner = 0
+    return winner
+
+
+def heuristic(list):
+    return list[7] - list[0]
