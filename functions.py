@@ -13,13 +13,14 @@ def show_game(binAmount):
 
 
 def play(list, input_pos, player, mode):
-
+    new_turn = 0
+    copy_list=list[:]
     case = 'normal'
     if mode == 0:
         if player == 1:
             if input_pos in [1, 2, 3, 4, 5, 6]:
-                if list[input_pos] != 0:
-                    number_stones = list[input_pos]
+                if copy_list[input_pos] != 0:
+                    number_stones = copy_list[input_pos]
                     if input_pos + number_stones == 7:
                         case = 'newturn'
                     elif input_pos + number_stones >= 14:
@@ -29,25 +30,26 @@ def play(list, input_pos, player, mode):
 
                     if case == 'normal':
                         for i in range(1, number_stones + 1):
-                            list[input_pos + i] = list[input_pos + i] + 1
-                        list[input_pos] = 0
+                            copy_list[input_pos + i] = copy_list[input_pos + i] + 1
+                        copy_list[input_pos] = 0
                         player = 2
-                        #show_game(list)
+                        #show_game(copy_list)
                     elif case == 'newturn':
+                        new_turn = 1
                         for i in range(1, number_stones + 1):
-                            list[input_pos + i] = list[input_pos + i] + 1
-                        list[input_pos] = 0
+                            copy_list[input_pos + i] = copy_list[input_pos + i] + 1
+                        copy_list[input_pos] = 0
                         player = 1
-                        #show_game(list)
+                        #show_game(copy_list)
 
                     elif case == 'skip':
                         for i in range(1, 13 - input_pos + 1):
-                            list[input_pos + i] = list[input_pos + i] + 1
+                            copy_list[input_pos + i] = copy_list[input_pos + i] + 1
                         for i in range(1, number_stones - (13 - input_pos) + 1):
-                            list[i] = list[i] + 1
-                        list[input_pos] = 0
+                            copy_list[i] = copy_list[i] + 1
+                        copy_list[input_pos] = 0
                         player = 2
-                        #show_game(list)
+                        #show_game(copy_list)
 
                 else:
                     print("*************************")
@@ -62,8 +64,8 @@ def play(list, input_pos, player, mode):
 
         elif player == 2:
             if input_pos in [8, 9, 10, 11, 12, 13]:
-                if list[input_pos] != 0:
-                    number_stones = list[input_pos]
+                if copy_list[input_pos] != 0:
+                    number_stones = copy_list[input_pos]
                     if input_pos + number_stones == 14:
                         case = 'newturn'
                         new_turn = 1
@@ -76,22 +78,23 @@ def play(list, input_pos, player, mode):
 
                     if case == 'normal':
                         for i in range(1, number_stones + 1):
-                            list[(input_pos + i) % 14] = list[(input_pos + i) % 14] + 1
-                        list[input_pos] = 0
+                            copy_list[(input_pos + i) % 14] = copy_list[(input_pos + i) % 14] + 1
+                        copy_list[input_pos] = 0
                         player = 1
 
                     elif case == 'newturn':
+                        new_turn = 1
                         for i in range(1, number_stones + 1):
-                            list[(input_pos + i) % 14] = list[(input_pos + i) % 14] + 1
-                        list[input_pos] = 0
+                            copy_list[(input_pos + i) % 14] = copy_list[(input_pos + i) % 14] + 1
+                        copy_list[input_pos] = 0
                         player = 2
 
                     elif case == 'skip':
                         for i in range(1, 20 - input_pos + 1):
-                            list[(input_pos + i) % 14] = list[(input_pos + i) % 14] + 1
+                            copy_list[(input_pos + i) % 14] = copy_list[(input_pos + i) % 14] + 1
                         for i in range(1, number_stones - (20 - input_pos) + 1):
-                            list[(i + 7) % 14] = list[(i + 7) % 14] + 1
-                        list[input_pos] = 0
+                            copy_list[(i + 7) % 14] = copy_list[(i + 7) % 14] + 1
+                        copy_list[input_pos] = 0
                         player = 1
 
                 else:
