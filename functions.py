@@ -107,6 +107,127 @@ def play(list, input_pos, player, mode):
                 print("***************")
                 print("* wrong entry *")
                 print("***************")
+    elif mode == 1:
+        if player == 1:
+            if input_pos in [1, 2, 3, 4, 5, 6]:
+                if copy_list[input_pos] != 0:
+                    number_stones = copy_list[input_pos]
+                    if input_pos + number_stones == 7:
+                        case = 'newturn'
+                        new_turn = 1
+                    elif input_pos + number_stones >= 14:
+                        case = 'skip'
+                        new_turn = 0
+                    else:
+                        case = 'normal'
+                        new_turn = 0
+
+                    if case == 'normal':
+                        for i in range(1, number_stones + 1):
+                            copy_list[input_pos + i] = copy_list[input_pos + i] + 1
+                        if (input_pos + number_stones) < 7:
+                            if copy_list[input_pos + number_stones] == 1:
+                                copy_list[7] += 1 + copy_list[14 - (input_pos + number_stones)]
+                                copy_list[14 - (input_pos + number_stones)] = 0
+                                copy_list[input_pos + number_stones] = 0
+                        copy_list[input_pos] = 0
+                        player = 2
+                    elif case == 'newturn':
+                        new_turn = 1
+                        for i in range(1, number_stones + 1):
+                            copy_list[input_pos + i] = copy_list[input_pos + i] + 1
+                        copy_list[input_pos] = 0
+                        player = 1
+
+                    elif case == 'skip':
+                        for i in range(1, 13 - input_pos + 1):
+                            copy_list[input_pos + i] = copy_list[input_pos + i] + 1
+                        for i in range(1, number_stones - (13 - input_pos) + 1):
+                            copy_list[i] = copy_list[i] + 1
+                        if (input_pos + number_stones) % 14 < 6 and (input_pos + number_stones) % 14 + 1 != 7:
+                            if copy_list[(input_pos + number_stones) % 14 + 1] == 1:
+                                copy_list[7] += 1 + copy_list[14 - ((input_pos + number_stones) % 14 + 1)]
+                                copy_list[14 - ((input_pos + number_stones) % 14 + 1)] = 0
+                                copy_list[(input_pos + number_stones) % 14 + 1] = 0
+                                stealing = 1
+                        copy_list[input_pos] = 0
+                        if (input_pos + number_stones) % 14 + 1 == 7:
+                            player = 1
+                            new_turn = 1
+                        else:
+                            player = 2
+
+                else:
+                    print("*************************")
+                    print("* choose non empty hole *")
+                    print("*************************")
+                    show_game(copy_list)
+
+
+            else:
+                print("***************")
+                print("* wrong entry *")
+                print("***************")
+
+        elif player == 2:
+            if input_pos in [8, 9, 10, 11, 12, 13]:
+                if copy_list[input_pos] != 0:
+                    number_stones = copy_list[input_pos]
+                    if input_pos + number_stones == 14:
+                        case = 'newturn'
+                    elif (input_pos + number_stones) % 14 >= 7 and (input_pos + number_stones) > 14:
+                        case = 'skip'
+                    else:
+                        case = 'normal'
+
+                    if case == 'normal':
+                        for i in range(1, number_stones + 1):
+                            copy_list[(input_pos + i) % 14] = copy_list[(input_pos + i) % 14] + 1
+                        if (input_pos + number_stones) % 14 > 7:
+                            if copy_list[input_pos + number_stones] == 1:
+                                copy_list[0] += 1 + copy_list[14 - (input_pos + number_stones)]
+                                copy_list[14 - (input_pos + number_stones)] = 0
+                                copy_list[input_pos + number_stones] = 0
+                        copy_list[input_pos] = 0
+                        player = 1
+                    elif case == 'newturn':
+                        new_turn = 1
+                        for i in range(1, number_stones + 1):
+                            copy_list[(input_pos + i) % 14] = copy_list[(input_pos + i) % 14] + 1
+                        copy_list[input_pos] = 0
+                        player = 2
+                    elif case == 'skip':
+                        copy_list[input_pos] = 0
+                        for i in range(1, 20 - input_pos + 1):
+                            copy_list[(input_pos + i) % 14] = copy_list[(input_pos + i) % 14] + 1
+                        for i in range(1, number_stones - (20 - input_pos) + 1):
+                            copy_list[(i + 7) % 14] = copy_list[(i + 7) % 14] + 1
+                        if (input_pos + number_stones) % 14 > 8 and (input_pos + number_stones + 1) % 14 != 0:
+                            if copy_list[(input_pos + number_stones) % 14 + 1] == 1:
+                                copy_list[0] += 1 + copy_list[14 - ((input_pos + number_stones) % 14 + 1)]
+                                copy_list[14 - ((input_pos + number_stones) % 14 + 1)] = 0
+                                copy_list[(input_pos + number_stones) % 14 + 1] = 0
+                                stealing = 1
+                        copy_list[input_pos] = 0
+                        if ((input_pos + number_stones) % 14 + 1) % 14 == 0:
+                            player = 2
+                            new_turn = 1
+                        else:
+                            player = 1
+                else:
+                    print("*************************")
+                    print("* choose non empty hole *")
+                    print("*************************")
+
+            else:
+                print("***************")
+                print("* wrong entry *")
+                print("***************")
+    if game_ended(copy_list[:]):
+        game_ended(copy_list)
+        return copy_list, player, new_turn
+
+    return copy_list, player, new_turn
 
 def all_valid_moves(list, player):
     valid_moves_player_1 = []
