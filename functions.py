@@ -124,11 +124,29 @@ def all_valid_moves(list, player):
 
 
 def game_ended(list):
-    if (list[1:7] == [0, 0, 0, 0, 0, 0]) or (list[8:14] == [0, 0, 0, 0, 0, 0]):
+    if (list[1:7] == [0, 0, 0, 0, 0, 0]):
+        list[0]+=sum(list[8:14])
+        list[8:14] = [0, 0, 0, 0, 0, 0]
         return True
-    else:
-        return False
+    if (list[8:14] == [0, 0, 0, 0, 0, 0]):
+        list[7]+=sum(list[1:7])
+        list[1:7] = [0, 0, 0, 0, 0, 0]
+        return True
+    
+
+
+# def win(list):
+#     winner = 0
+    
+#     if list[0] > list[7]:
+#         winner = 2
+#     elif list[7] > list[0]:
+#         winner = 1
+#     else:
+#         winner = 0
+#     return winner
 
 
 def heuristic(list):
-    return list[7] - list[0]
+    #print(list)
+    return list[0] - list[7]
