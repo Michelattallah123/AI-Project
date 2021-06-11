@@ -127,16 +127,5 @@ def game_ended(list):
         return False
 
 
-def win(list):
-    winner = 0
-    if list[0] > list[7]:
-        winner = 2
-    elif list[7] > list[0]:
-        winner = 1
-    else:
-        winner = 0
-    return winner
-
-
 def heuristic(list):
     return list[7] - list[0]
