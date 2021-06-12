@@ -1,7 +1,7 @@
 import minimax, functions
 import json
 
-board = [0, 0, 1, 0, 0, 2, 0, 0, 4, 4, 4, 4, 4, 4]
+board = [0, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4]
 player = 1
 player_vs_Ai = int(input("choose the mode( 0 : PvP / 1 : PvAi) "))
 mode = int(input("choose the mode( 0 : non stealing / 1 : stealing) "))
