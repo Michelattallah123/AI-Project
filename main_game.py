@@ -1,7 +1,7 @@
 import minimax, functions
 import json
 
-board = [0, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4]
+board = [0, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 4]
 player = 1
 player_vs_Ai = int(input("choose the mode( 0 : PvP / 1 : PvAi) "))
 mode = int(input("choose the mode( 0 : non stealing / 1 : stealing) "))
@@ -62,7 +62,7 @@ while not(functions.game_ended(board[:])):
                 if board[7] > board[0]:
                     print("GG noob Ai")
                 elif board[0] > board[7]:
-                    print("قاتلت بضراوه")
+                    print("GG noob human")
                 break
         else:
             if difficulty == 0:
@@ -85,6 +85,10 @@ while not(functions.game_ended(board[:])):
                 if board[7] > board[0]:
                     print("GG noob Ai")
                 elif board[0] > board[7]:
-                    print("قاتلت بضراوه")
+                    print("GG noob human")
                 break
+while True:
+    close = input("press e to exit game: \n")
+    if close =='e':
+        break
         
